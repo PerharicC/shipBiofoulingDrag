@@ -1,0 +1,12 @@
+#python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+#Other
+parameters/
+results/
+literature/
+.DS_Store
+.vscode/
