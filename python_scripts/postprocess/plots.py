@@ -108,7 +108,7 @@ def fit_Cf():
         plt.plot(Ks * 10**6, Cf-Cf_S, "o", label = f"U = {round(mps_to_knots(u))} kts", color = colors[i])
         KS_fit = np.linspace(0, 0.002, 1000)
         plt.plot(KS_fit *10**6, fit(KS_fit, *popt), lw = 2, color = colors[i])#, label = r"${}\ln\left(1-\exp({}-{}k)\right)$".format(*(np.round(popt * np.asarray([1000, 100, 1])) / np.asarray([1000, 100, 1])) ))
-        print("Error:", popt[0] * (1 - np.exp(popt[1])))
+        print("Error:", popt[0] * (1 - np.exp(popt[1])), "; Relative error:", popt[0] * (1 - np.exp(popt[1])) / Cf_S * 100)
     plt.xlabel(r"$k\,[\mathrm{\mu\,m}]$")
     plt.ylabel(r"$\Delta C_F$")
     plt.legend()
@@ -171,7 +171,7 @@ def Delta_m_vs_U():
     Cf = CFD_data["Cf"][CFD_data["Ks"]==max_ks]
     U = CFD_data["U"][CFD_data["Ks"]==max_ks]
     dm = (Cf / get_smooth_Cfs(U, L)-1) * ECF_CO2 * SFOC*U**3 / 1000 * 1028
-    d_price = (Cf / get_smooth_Cfs(U, L)-1) * SFOC*U**3 * 1.82 / 0.84 / 1000 * 1028 #https://www.globalpetrolprices.com/Slovenia/diesel_prices/#:~:text=The%20current%20price%20of%20diesel%20fuel%20in,based%20on%20the%20latest%20update%20from%2013%2DApr%2D2026.
+    d_price = (Cf / get_smooth_Cfs(U, L)-1) * SFOC*U**3 * 1.82 / 0.84 / 1000 * 1028
     ax.plot(mps_to_knots(U), dm, lw = 3, color = "black")
     ax2.plot(mps_to_knots(U), d_price, lw = 3, color = "black")
     ax.set_xlabel("U [kts]")
@@ -216,11 +216,11 @@ def lahoFlatPlate_contour_U3():
 
 
 if __name__ == "__main__":
-    # roughness_function_vs_Re()
-    # largeFlatPlate_cf()
-    # make_table_for_k_from_height()
-    # lahoFlatPlate_cf()
-    # fit_Cf()
-    # lahoFlatPlate_contour()
-    # Delta_m_vs_U()
+    roughness_function_vs_Re()
+    largeFlatPlate_cf()
+    make_table_for_k_from_height()
+    lahoFlatPlate_cf()
+    fit_Cf()
+    lahoFlatPlate_contour()
+    Delta_m_vs_U()
     lahoFlatPlate_contour_U3()

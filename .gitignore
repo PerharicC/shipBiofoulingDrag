@@ -8,5 +8,6 @@ __pycache__/
 parameters/
 results/
 literature/
+tex/
 .DS_Store
 .vscode/
